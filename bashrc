@@ -17,6 +17,7 @@ alias diff='diff --color=always'
 alias rm='rm -i'
 alias tree='tree -C'
 
+# for rust-analyzer initially
 PATH=~/.local/bin:$PATH
 
 reduce_path(){
