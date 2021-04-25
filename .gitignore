@@ -1,3 +1,4 @@
 *.elc
 emacs.d/projects
 emacs.d/elpa/gnupg
+emacs.d/.*
