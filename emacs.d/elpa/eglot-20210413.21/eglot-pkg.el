@@ -1,0 +1,2 @@
+;;; -*- no-byte-compile: t -*-
+(define-package "eglot" "20210413.21" "Client for Language Server Protocol (LSP) servers" '((emacs "26.1") (jsonrpc "1.0.14") (flymake "1.0.9") (project "0.3.0") (xref "1.0.1") (eldoc "1.11.0")) :authors '(("Jo\303\243o T\303\241vora" . "joaotavora@gmail.com")) :maintainer '("Jo\303\243o T\303\241vora" . "joaotavora@gmail.com") :url "https://github.com/joaotavora/eglot")
