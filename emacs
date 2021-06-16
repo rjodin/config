@@ -58,6 +58,8 @@
 
 ;; (global-set-key (kbd "C-i") 'clang-format-region)
 
+(setq vc-follow-symlinks t)
+
 ;;HIGHLIGHT CURRENT LINE
 (global-hl-line-mode 1)
 
@@ -156,6 +158,9 @@ Non-interactive arguments are Begin End Regexp"
 (add-to-list 'auto-mode-alist '("CMakeLists\\.txt\\'" . makefile-mode))
 (add-to-list 'auto-mode-alist '("\\.cmake\\'" . makefile-mode))
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rustic-mode))
+
+(add-to-list 'auto-mode-alist '("bashrc" . sh-mode))
+(add-to-list 'auto-mode-alist '("emacs" . emacs-lisp-mode))
 
 ;; whitespace-mode : to see white space, tab, etc
 ;; setq show-trailing-whitespace : to see useless tab/whitespace (t or nil)
