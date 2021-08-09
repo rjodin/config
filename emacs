@@ -64,6 +64,8 @@
 (global-hl-line-mode 1)
 
 ;;MAGIT
+(require 'magit)
+(setq magit-bind-magit-project-status nil)
 (global-set-key (kbd "C-x g") 'magit-status)
 
 ;; NO ~ FILE GENERATED
