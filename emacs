@@ -174,8 +174,12 @@ Non-interactive arguments are Begin End Regexp"
 
 (add-hook 'after-init-hook 'global-company-mode)
 
+(defun project-root (project)
+    (car (project-roots project)))
+
 (require 'eglot)
 (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd" "--background-index"))
 (add-hook 'c-mode-hook 'eglot-ensure)
 (add-hook 'c++-mode-hook 'eglot-ensure)
 (global-set-key (kbd "M-/") 'xref-find-references)
+(global-set-key (kbd "M-.") 'xref-find-definitions)
