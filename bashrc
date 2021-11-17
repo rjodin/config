@@ -16,6 +16,7 @@ alias ll='ls -lh --color=auto'
 alias diff='diff --color=always'
 alias rm='rm -i'
 alias tree='tree -C'
+alias difff='diff --color=always --suppress-common-line -y -W$COLUMNS'
 
 # for rust-analyzer initially
 PATH=~/.local/bin:$PATH
@@ -32,11 +33,18 @@ prompt_fct(){
     HOSTNAME=$(hostname -s)
     DATE=$(date +%H:%M)
     GITSTATUS=""
+    ICD_SET=""
 
     if $(git status --ignore-submodules=all 2> /dev/null | grep -q "modifi")
     then
         GITSTATUS="M"
     fi
+    
+    if [[ "${VK_ICD_FILENAMES}" != "" ]] || [[ "${OCL_ICD_FILENAMES}" != "" ]]
+    then
+        ICD_SET="ICD "
+    fi
+
     CURBRANCH=$(git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/(\1) /')
 
     COLOR_CYAN="\[\e[00;36m\]"
@@ -50,7 +58,7 @@ prompt_fct(){
     PS1_ADDED_CHAR=" [@]  "
 
     [ -z $COLUMNS ] && COLUMNS=80;
-    NBLINE=$(($COLUMNS - ${#GITSTATUS} - ${#HOSTNAME} - ${#WHOAMI} - ${#CURDIR} - ${#CURBRANCH} - ${#RET} - ${#DATE} - ${#PS1_ADDED_CHAR}))
+    NBLINE=$(($COLUMNS - ${#GITSTATUS} - ${#HOSTNAME} - ${#WHOAMI} - ${#CURDIR} - ${#CURBRANCH} - ${#RET} - ${#DATE} - ${#PS1_ADDED_CHAR} - ${#ICD_SET}))
     ENDLINE=""
     for (( c=0; c<$NBLINE; c++ )) do ENDLINE+="-"; done
 
@@ -58,6 +66,7 @@ prompt_fct(){
     PS1+="$COLOR_CYAN_BOLD$DATE "
     PS1+="$COLOR_CYAN[$WHOAMI@$HOSTNAME] "
     PS1+="$COLOR_CYAN_BOLD$CURDIR "
+    PS1+="$COLOR_GREEN$ICD_SET"
     PS1+="$COLOR_RED_BOLD$GITSTATUS"
     PS1+="$COLOR_YELLOW$CURBRANCH"
     PS1+="$COLOR_RED_BOLD$RET"
