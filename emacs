@@ -144,7 +144,7 @@ Non-interactive arguments are Begin End Regexp"
   "Infer indent mode and switch to it"
   (interactive)
   (let ((space-count (how-many-region (point-min) (point-max) "^  "))
-        (tab-count (how-many-region (point-min) (point-max) "^    ")))
+        (tab-count (how-many-region (point-min) (point-max) "^\t")))
     (if (> space-count tab-count) (setq indent-tabs-mode nil))
     (if (> space-count tab-count) (guess-default-offset))
     (if (> space-count tab-count) (message "Switch to space mode"))
@@ -163,6 +163,10 @@ Non-interactive arguments are Begin End Regexp"
 
 (add-to-list 'auto-mode-alist '("bashrc" . sh-mode))
 (add-to-list 'auto-mode-alist '("emacs" . emacs-lisp-mode))
+
+(add-to-list 'auto-mode-alist '("\\.ebuild\\'" . sh-mode))
+
+(add-to-list 'auto-mode-alist '("\\.cl\\'" . c-mode))
 
 ;; whitespace-mode : to see white space, tab, etc
 ;; setq show-trailing-whitespace : to see useless tab/whitespace (t or nil)
