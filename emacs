@@ -5,18 +5,17 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#ad7fa8" "#8cc4ff" "#eeeeec"])
- '(c-basic-offset 4 t)
+ '(c-basic-offset 4)
  '(column-number-mode t)
- '(custom-enabled-themes (quote (manoj-dark)))
+ '(custom-enabled-themes (manoj-dark))
  '(electric-pair-mode t)
  '(fringe-mode 0 nil (fringe))
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
  '(package-selected-packages
-   (quote
-    (go-mode clang-format flycheck pkg-info epl lsp-mode lv ht rustic spinner xterm-color markdown-mode f s rust-mode company eglot flymake project jsonrpc eldoc xref multiple-cursors magit transient ghub treepy git-commit magit-popup with-editor dash async)))
- '(python-indent 4)
+    (go-mode clang-format flycheck pkg-info epl lsp-mode lv ht rustic spinner xterm-color markdown-mode f s rust-mode company eglot flymake project jsonrpc eldoc xref multiple-cursors magit transient ghub treepy git-commit magit-popup with-editor dash async))
+ '(python-indent-offset 4)
  '(ruby-indent-level 4 t)
  '(show-paren-mode t)
  '(show-trailing-whitespace t)
