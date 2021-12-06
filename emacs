@@ -15,7 +15,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (flycheck pkg-info epl lsp-mode lv ht rustic spinner xterm-color markdown-mode f s rust-mode company eglot flymake project jsonrpc eldoc xref multiple-cursors magit transient ghub treepy git-commit magit-popup with-editor dash async)))
+    (go-mode clang-format flycheck pkg-info epl lsp-mode lv ht rustic spinner xterm-color markdown-mode f s rust-mode company eglot flymake project jsonrpc eldoc xref multiple-cursors magit transient ghub treepy git-commit magit-popup with-editor dash async)))
  '(python-indent 4)
  '(ruby-indent-level 4 t)
  '(show-paren-mode t)
@@ -83,8 +83,8 @@
 (require 'package)
 (setq package-archives
       '(("GNU ELPA" . "https://elpa.gnu.org/packages/")
-        ("MELPA Stable" . "https://stable.melpa.org/")
-        ("MELPA" . "https://melpa.org/")
+        ("MELPA Stable" . "https://stable.melpa.org/packages/")
+        ("MELPA" . "https://melpa.org/packages/")
         )
       package-archive-priorities
       '(("MELPA Stable" . 10)
