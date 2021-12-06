@@ -7,7 +7,7 @@
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#ad7fa8" "#8cc4ff" "#eeeeec"])
  '(c-basic-offset 4)
  '(column-number-mode t)
- '(custom-enabled-themes (manoj-dark))
+ '(custom-enabled-themes '(manoj-dark))
  '(electric-pair-mode t)
  '(fringe-mode 0 nil (fringe))
  '(indent-tabs-mode nil)
