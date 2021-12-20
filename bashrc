@@ -48,7 +48,6 @@ prompt_fct(){
 
     local RET=$(echo $?" " | sed 's/^0 $//');
     local CURDIR=$(reduce_path $(pwd))
-    local WHOAMI=$(echo $(whoami) | sed 's/rjodin/®/')
     local HOSTNAME=$(hostname -s)
     local DATE=$(date +%H:%M)
     local GITSTATUS=""
@@ -74,16 +73,16 @@ prompt_fct(){
     local COLOR_GREEN="\[\e[00;32m\]"
     local COLOR_NONE="\[\e[0m\]"
 
-    local PS1_ADDED_CHAR=" [@]  "
+    local PS1_ADDED_CHAR=" []  "
 
     [ -z $COLUMNS ] && COLUMNS=80;
-    local NBLINE=$(($COLUMNS - ${#GITSTATUS} - ${#HOSTNAME} - ${#WHOAMI} - ${#CURDIR} - ${#CURBRANCH} - ${#RET} - ${#DATE} - ${#PS1_ADDED_CHAR} - ${#ICD_SET}))
+    local NBLINE=$(($COLUMNS - ${#GITSTATUS} - ${#HOSTNAME} - ${#CURDIR} - ${#CURBRANCH} - ${#RET} - ${#DATE} - ${#PS1_ADDED_CHAR} - ${#ICD_SET}))
     local ENDLINE=""
     for (( c=0; c<$NBLINE; c++ )) do ENDLINE+="-"; done
 
     PS1=""
     PS1+="$COLOR_CYAN_BOLD$DATE "
-    PS1+="$COLOR_CYAN[$WHOAMI@$HOSTNAME] "
+    PS1+="$COLOR_CYAN[$HOSTNAME] "
     PS1+="$COLOR_CYAN_BOLD$CURDIR "
     PS1+="$COLOR_GREEN$ICD_SET"
     PS1+="$COLOR_RED_BOLD$GITSTATUS"
