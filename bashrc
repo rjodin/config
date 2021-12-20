@@ -22,44 +22,63 @@ alias difff='diff --color=always --suppress-common-line -y -W$COLUMNS'
 PATH=~/.local/bin:$PATH
 
 reduce_path(){
-    echo $1 | sed 's/\/home\/rjodin/~/' | sed 's/\(\/[^\/]*\/\).*\/.*\(\/[^\/]*\/[^\/]*\/[^\/]*\)$/\1...\2/'
+    local full_path=$1
+    local reduce_prefix=$(echo $full_path \
+                           | sed 's|/home/rjodin|~|')
+    # | sed 's|\(/[^/]*/\).*/.*\(/[^/]*/[^/]*/[^/]*\)$|\1...\2|'
+    # return
+    local prefix=$(echo $reduce_prefix | sed 's|^\([^/]*/[^/]*\)/.*$|\1|')
+    local current_dir=$(echo $reduce_prefix | sed 's|^.*\(/[^/]*/[^/]*\)$|\1|')
+    local suffix=$(echo $reduce_prefix | sed 's|^[^/]*/[^/]*\(/.*\)/[^/]*/[^/]*$|\1|')
+    local reduce_suffix=$(echo $suffix | sed -r 's|/(.)[^/]*|/\1|g')
+    # echo -ne "$prefix\n$suffix\n$reduce_suffix\n$current_dir\n"
+    # return
+    if [[ $suffix == $reduce_prefix ]]
+    then
+        echo $reduce_prefix
+    elif [[ $suffix == $prefix$current_dir ]]
+    then
+        echo $prefix$current_dir
+    else
+        echo $prefix$reduce_suffix$current_dir
+    fi
 }
 
 prompt_fct(){
 
-    RET=$(echo $?" " | sed 's/^0 $//');
-    CURDIR=$(reduce_path $(pwd))
-    WHOAMI=$(echo $(whoami) | sed 's/rjodin/®/')
-    HOSTNAME=$(hostname -s)
-    DATE=$(date +%H:%M)
-    GITSTATUS=""
-    ICD_SET=""
+    local RET=$(echo $?" " | sed 's/^0 $//');
+    local CURDIR=$(reduce_path $(pwd))
+    local WHOAMI=$(echo $(whoami) | sed 's/rjodin/®/')
+    local HOSTNAME=$(hostname -s)
+    local DATE=$(date +%H:%M)
+    local GITSTATUS=""
+    local ICD_SET=""
 
     if $(git status --ignore-submodules=all 2> /dev/null | grep -q "modifi")
     then
         GITSTATUS="M"
     fi
-    
+
     if [[ "${VK_ICD_FILENAMES}" != "" ]] || [[ "${OCL_ICD_FILENAMES}" != "" ]]
     then
         ICD_SET="ICD "
     fi
 
-    CURBRANCH=$(git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/(\1) /')
+    local CURBRANCH=$(git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/(\1) /')
 
-    COLOR_CYAN="\[\e[00;36m\]"
-    COLOR_CYAN_BOLD="\[\e[01;36m\]"
-    COLOR_YELLOW="\[\e[00;33m\]"
-    COLOR_YELLOW_BOLD="\[\e[01;33m\]"
-    COLOR_RED_BOLD="\[\e[01;31m\]"
-    COLOR_GREEN="\[\e[00;32m\]"
-    COLOR_NONE="\[\e[0m\]"
+    local COLOR_CYAN="\[\e[00;36m\]"
+    local COLOR_CYAN_BOLD="\[\e[01;36m\]"
+    local COLOR_YELLOW="\[\e[00;33m\]"
+    local COLOR_YELLOW_BOLD="\[\e[01;33m\]"
+    local COLOR_RED_BOLD="\[\e[01;31m\]"
+    local COLOR_GREEN="\[\e[00;32m\]"
+    local COLOR_NONE="\[\e[0m\]"
 
-    PS1_ADDED_CHAR=" [@]  "
+    local PS1_ADDED_CHAR=" [@]  "
 
     [ -z $COLUMNS ] && COLUMNS=80;
-    NBLINE=$(($COLUMNS - ${#GITSTATUS} - ${#HOSTNAME} - ${#WHOAMI} - ${#CURDIR} - ${#CURBRANCH} - ${#RET} - ${#DATE} - ${#PS1_ADDED_CHAR} - ${#ICD_SET}))
-    ENDLINE=""
+    local NBLINE=$(($COLUMNS - ${#GITSTATUS} - ${#HOSTNAME} - ${#WHOAMI} - ${#CURDIR} - ${#CURBRANCH} - ${#RET} - ${#DATE} - ${#PS1_ADDED_CHAR} - ${#ICD_SET}))
+    local ENDLINE=""
     for (( c=0; c<$NBLINE; c++ )) do ENDLINE+="-"; done
 
     PS1=""
