@@ -14,7 +14,7 @@
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
  '(package-selected-packages
-    (go-mode clang-format flycheck pkg-info epl lsp-mode lv ht rustic spinner xterm-color markdown-mode f s rust-mode company eglot flymake project jsonrpc eldoc xref multiple-cursors magit transient ghub treepy git-commit magit-popup with-editor dash async))
+    '(go-mode clang-format flycheck pkg-info epl lsp-mode lv ht rustic spinner xterm-color markdown-mode f s rust-mode company eglot flymake project jsonrpc eldoc xref multiple-cursors magit transient ghub treepy git-commit magit-popup with-editor dash async))
  '(python-indent-offset 4)
  '(ruby-indent-level 4 t)
  '(show-paren-mode t)
