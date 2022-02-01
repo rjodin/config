@@ -47,7 +47,7 @@ reduce_path(){
 prompt_fct(){
 
     local RET=$(echo $?" " | sed 's/^0 $//');
-    local CURDIR=$(reduce_path $(pwd))
+    local CURDIR=$(reduce_path "$(pwd)")
     local HOSTNAME=$(hostname -s)
     local DATE=$(date +%H:%M)
     local GITSTATUS=""
