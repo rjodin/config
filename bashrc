@@ -16,6 +16,15 @@ alias rm='rm -i'
 alias tree='tree -C'
 alias difff='diff --color=always --suppress-common-line -y -W$COLUMNS'
 
+alias cd_tmp='cd $(mktemp -d)'
+alias rm_tmp='pwd >> ~/.pwd && cd && rm -rf $(cat ~/.pwd | tail -n 1)'
+
+alias get_pwd='pwd | tee -a ~/.pwd'
+alias cd_pwd='cd $(cat ~/.pwd | tail -n 1)'
+alias cd_pwd1='cd $(cat ~/.pwd | tail -n 2 | head -n 1)'
+alias cd_pwd2='cd $(cat ~/.pwd | tail -n 3 | head -n 1)'
+alias cd_pwd3='cd $(cat ~/.pwd | tail -n 4 | head -n 1)'
+
 reduce_path(){
     local full_path=$1
     local reduce_prefix=$(echo $full_path \
