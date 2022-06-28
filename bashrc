@@ -92,6 +92,9 @@ prompt_fct(){
     PS1+="$COLOR_RED_BOLD$RET"
     PS1+="$COLOR_CYAN$ENDLINE"
     PS1+="$COLOR_NONE\n\$ "
+    
+    # ring bell in tmux
+    echo -ne "\a"
 }
 
 PROMPT_COMMAND='prompt_fct'
