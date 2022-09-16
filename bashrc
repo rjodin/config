@@ -31,9 +31,9 @@ reduce_path(){
                            | sed 's|/home/rjodin|~|')
     # | sed 's|\(/[^/]*/\).*/.*\(/[^/]*/[^/]*/[^/]*\)$|\1...\2|'
     # return
-    local prefix=$(echo $reduce_prefix | sed 's|^\([^/]*/[^/]*\)/.*$|\1|')
-    local current_dir=$(echo $reduce_prefix | sed 's|^.*\(/[^/]*/[^/]*\)$|\1|')
-    local suffix=$(echo $reduce_prefix | sed 's|^[^/]*/[^/]*\(/.*\)/[^/]*/[^/]*$|\1|')
+    local prefix=$(echo $reduce_prefix | sed 's|^\([^/]*\)/.*$|\1|')
+    local current_dir=$(echo $reduce_prefix | sed 's|^.*\(/[^/]*/[^/]*/[^/]*\)$|\1|')
+    local suffix=$(echo $reduce_prefix | sed 's|^[^/]*\(/.*\)/[^/]*/[^/]*/[^/]*$|\1|')
     local reduce_suffix=$(echo $suffix | sed -r 's|/(.)[^/]*|/\1|g')
     # echo -ne "$prefix\n$suffix\n$reduce_suffix\n$current_dir\n"
     # return
@@ -92,7 +92,7 @@ prompt_fct(){
     PS1+="$COLOR_RED_BOLD$RET"
     PS1+="$COLOR_CYAN$ENDLINE"
     PS1+="$COLOR_NONE\n\$ "
-    
+
     # ring bell in tmux
     echo -ne "\a"
 }
