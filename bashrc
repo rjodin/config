@@ -51,10 +51,31 @@ reduce_path(){
 prompt_fct(){
 
     local RET=$(echo $?" " | sed 's/^0 $//');
-    local CURDIR=$(reduce_path "$(pwd)")
-    local DATE=$(date +%H:%M)
+    local CURRENT_TIME=$(date +%s)
+    local CURDIR="$(reduce_path "$(pwd)") "
+    local DATE="$(date +%H:%M) "
     local GITSTATUS=""
     local ICD_SET=""
+
+    local TIME=""
+    if [ -f ~/.bashrc_date ]
+    then
+        local BASHRC_DATE=$(cat ~/.bashrc_date)
+        rm -f ~/.bashrc_date
+
+        local elapse_time=$((${CURRENT_TIME} - ${BASHRC_DATE}))
+        if [[ ${elapse_time} -gt 3600 ]]
+        then
+            TIME+="$((${elapse_time} / 3600)):"
+            elapse_time=$((${elapse_time} % 3600))
+        fi
+        if [[ ${elapse_time} -gt 60 ]]
+        then
+            TIME+="$((${elapse_time} / 60)):"
+            elapse_time=$((${elapse_time} % 60))
+        fi
+        TIME+="${elapse_time} "
+    fi
 
     if $(git status --ignore-submodules=all 2> /dev/null | grep -q "modifi")
     then
@@ -70,22 +91,22 @@ prompt_fct(){
 
     local COLOR_CYAN="\[\e[00;36m\]"
     local COLOR_CYAN_BOLD="\[\e[01;36m\]"
+    local COLOR_DARK_GRAY="\[\e[00;90m\]"
     local COLOR_YELLOW="\[\e[00;33m\]"
     local COLOR_YELLOW_BOLD="\[\e[01;33m\]"
     local COLOR_RED_BOLD="\[\e[01;31m\]"
     local COLOR_GREEN="\[\e[00;32m\]"
     local COLOR_NONE="\[\e[0m\]"
 
-    local PS1_ADDED_CHAR="  "
-
     [ -z $COLUMNS ] && COLUMNS=80;
-    local NBLINE=$(($COLUMNS - ${#GITSTATUS} - ${#CURDIR} - ${#CURBRANCH} - ${#RET} - ${#DATE} - ${#PS1_ADDED_CHAR} - ${#ICD_SET}))
+    local NBLINE=$(($COLUMNS - ${#GITSTATUS} - ${#CURDIR} - ${#CURBRANCH} - ${#RET} - ${#DATE} - ${#ICD_SET} - ${#TIME}))
     local ENDLINE=""
     for (( c=0; c<$NBLINE; c++ )) do ENDLINE+="-"; done
 
     PS1=""
-    PS1+="$COLOR_CYAN$DATE "
-    PS1+="$COLOR_CYAN_BOLD$CURDIR "
+    PS1+="$COLOR_CYAN$DATE"
+    PS1+="$COLOR_DARK_GRAY$TIME"
+    PS1+="$COLOR_CYAN_BOLD$CURDIR"
     PS1+="$COLOR_GREEN$ICD_SET"
     PS1+="$COLOR_RED_BOLD$GITSTATUS"
     PS1+="$COLOR_YELLOW$CURBRANCH"
@@ -98,3 +119,14 @@ prompt_fct(){
 }
 
 PROMPT_COMMAND='prompt_fct'
+
+function before_command() {
+    case "$BASH_COMMAND" in
+        $PROMPT_COMMAND)
+        ;;
+        *)
+            date +%s > ~/.bashrc_date
+    esac
+}
+trap before_command DEBUG
+
