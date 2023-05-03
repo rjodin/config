@@ -46,7 +46,7 @@ reduce_path(){
 }
 
 date_file() {
-    echo -ne "$(realpath ~/.bashrc_date_$(ps -o session --no-headers | head -n 1))"
+    echo -ne "$(realpath ~/.bashrc_date_$(ps -o session --no-headers | head -n 1 | sed 's| *||'))"
 }
 
 prompt_fct(){
