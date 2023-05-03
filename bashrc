@@ -45,6 +45,10 @@ reduce_path(){
     fi
 }
 
+date_file() {
+    echo -ne "$(realpath ~/.bashrc_date_$(ps -o session --no-headers | head -n 1))"
+}
+
 prompt_fct(){
 
     local RET=$(echo $?" " | sed 's/^0 $//');
@@ -54,11 +58,12 @@ prompt_fct(){
     local GITSTATUS=""
     local ICD_SET=""
 
+    local DATE_FILE=$(date_file)
     local TIME=""
-    if [ -f ~/.bashrc_date ]
+    if [ -f ${DATE_FILE} ]
     then
-        local BASHRC_DATE=$(cat ~/.bashrc_date)
-        rm -f ~/.bashrc_date
+        local BASHRC_DATE=$(cat ${DATE_FILE})
+        rm -f ${DATE_FILE}
 
         local elapse_time=$((${CURRENT_TIME} - ${BASHRC_DATE}))
         if [[ ${elapse_time} -gt 3600 ]]
@@ -122,7 +127,7 @@ function before_command() {
         $PROMPT_COMMAND)
         ;;
         *)
-            date +%s > ~/.bashrc_date
+            date +%s > "$(date_file)"
     esac
 }
 trap before_command DEBUG
