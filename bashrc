@@ -55,8 +55,6 @@ prompt_fct(){
     local CURRENT_TIME=$(date +%s)
     local CURDIR="$(reduce_path "$(pwd)") "
     local DATE="$(date +%H:%M) "
-    local GITSTATUS=""
-    local ICD_SET=""
 
     local DATE_FILE=$(date_file)
     local TIME=""
@@ -79,39 +77,39 @@ prompt_fct(){
         TIME+="${elapse_time} "
     fi
 
-    if $(git status --ignore-submodules=all 2> /dev/null | grep -q "modifi")
-    then
-        GITSTATUS="M"
-    fi
-
-    if [[ "${VK_ICD_FILENAMES}" != "" ]] || [[ "${OCL_ICD_FILENAMES}" != "" ]]
-    then
-        ICD_SET="ICD "
-    fi
-
-    local CURBRANCH=$(git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/(\1) /')
-
     local COLOR_CYAN="\[\e[00;36m\]"
     local COLOR_CYAN_BOLD="\[\e[01;36m\]"
     local COLOR_DARK_GRAY="\[\e[00;90m\]"
     local COLOR_YELLOW="\[\e[00;33m\]"
-    local COLOR_YELLOW_BOLD="\[\e[01;33m\]"
+    local COLOR_MAGENTA="\[\e[00;35m\]"
     local COLOR_RED_BOLD="\[\e[01;31m\]"
     local COLOR_GREEN="\[\e[00;32m\]"
     local COLOR_NONE="\[\e[0m\]"
 
+    local CURBRANCH=$(git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/(\1) /')
+    local CURBRANCH_COLOR="${COLOR_YELLOW}"
+    if $(git status --ignore-submodules=all 2> /dev/null | grep -q "modifi")
+    then
+        CURBRANCH_COLOR="${COLOR_MAGENTA}"
+    fi
+
+    local ENDLINE_CHAR="-"
+    if [[ "${VK_ICD_FILENAMES}" != "" ]] || [[ "${OCL_ICD_FILENAMES}" != "" ]]
+    then
+        ENDLINE_CHAR="="
+    fi
+
     [ -z $COLUMNS ] && COLUMNS=80;
-    local NBLINE=$(($COLUMNS - ${#GITSTATUS} - ${#CURDIR} - ${#CURBRANCH} - ${#RET} - ${#DATE} - ${#ICD_SET} - ${#TIME}))
+    local NBLINE=$(($COLUMNS - ${#CURDIR} - ${#CURBRANCH} - ${#RET} - ${#DATE} - ${#TIME}))
     local ENDLINE=""
-    for (( c=0; c<$NBLINE; c++ )) do ENDLINE+="-"; done
+    for (( c=0; c<$NBLINE; c++ )) do ENDLINE+=${ENDLINE_CHAR}; done
 
     PS1=""
     PS1+="$COLOR_CYAN$DATE"
     PS1+="$COLOR_DARK_GRAY$TIME"
     PS1+="$COLOR_CYAN_BOLD$CURDIR"
     PS1+="$COLOR_GREEN$ICD_SET"
-    PS1+="$COLOR_RED_BOLD$GITSTATUS"
-    PS1+="$COLOR_YELLOW$CURBRANCH"
+    PS1+="$CURBRANCH_COLOR$CURBRANCH"
     PS1+="$COLOR_RED_BOLD$RET"
     PS1+="$COLOR_CYAN$ENDLINE"
     PS1+="$COLOR_NONE\n\$ "
