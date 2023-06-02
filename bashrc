@@ -83,7 +83,6 @@ prompt_fct(){
     local COLOR_YELLOW="\[\e[00;33m\]"
     local COLOR_MAGENTA="\[\e[00;35m\]"
     local COLOR_RED_BOLD="\[\e[01;31m\]"
-    local COLOR_GREEN="\[\e[00;32m\]"
     local COLOR_NONE="\[\e[0m\]"
 
     local CURBRANCH=$(git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/(\1) /')
@@ -108,7 +107,6 @@ prompt_fct(){
     PS1+="$COLOR_CYAN$DATE"
     PS1+="$COLOR_DARK_GRAY$TIME"
     PS1+="$COLOR_CYAN_BOLD$CURDIR"
-    PS1+="$COLOR_GREEN$ICD_SET"
     PS1+="$CURBRANCH_COLOR$CURBRANCH"
     PS1+="$COLOR_RED_BOLD$RET"
     PS1+="$COLOR_CYAN$ENDLINE"
