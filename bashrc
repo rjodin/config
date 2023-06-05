@@ -81,7 +81,7 @@ prompt_fct(){
     local COLOR_CYAN_BOLD="\[\e[01;36m\]"
     local COLOR_DARK_GRAY="\[\e[00;90m\]"
     local COLOR_YELLOW="\[\e[00;33m\]"
-    local COLOR_MAGENTA="\[\e[00;35m\]"
+    local COLOR_MAGENTA_BOLD="\[\e[01;35m\]"
     local COLOR_RED_BOLD="\[\e[01;31m\]"
     local COLOR_NONE="\[\e[0m\]"
 
@@ -89,7 +89,7 @@ prompt_fct(){
     local CURBRANCH_COLOR="${COLOR_YELLOW}"
     if $(git status --ignore-submodules=all 2> /dev/null | grep -q "modifi")
     then
-        CURBRANCH_COLOR="${COLOR_MAGENTA}"
+        CURBRANCH_COLOR="${COLOR_MAGENTA_BOLD}"
     fi
 
     local ENDLINE_CHAR="-"
