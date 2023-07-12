@@ -93,7 +93,7 @@ prompt_fct(){
     fi
 
     local ENDLINE_CHAR="-"
-    if [[ "${VK_ICD_FILENAMES}" != "" ]] || [[ "${OCL_ICD_FILENAMES}" != "" ]]
+    if $(echo $LD_LIBRARY_PATH | grep -q clvk)
     then
         ENDLINE_CHAR="="
     fi
