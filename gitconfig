@@ -16,7 +16,7 @@
 [alias]
 	st = status -s
 	stu = status -s -unormal
-	lgs = log --format='%Cred%h %Cgreen(%ad) %C(yellow)<%an>%Creset %s %C(blue)%d%C(reset)' --date=short -10
+	lgs = log --format='%Cred%h %Cgreen(%ad) %C(yellow)<%an>%Creset %s %C(blue)%d%C(reset)' --date=short -16
 	lgsf = log --format='%Cred%h %Cgreen(%ad) %C(yellow)<%an>%Creset %s %C(blue)%d%C(reset)' --date=short
 	diffl = "!echo $1; git lgs ^HEAD $1 $2; echo HEAD; git lgs HEAD ^$1 $2"
 	difflf = "!echo $1; git lgsf ^HEAD $1; echo HEAD; git lgsf HEAD ^$1"
