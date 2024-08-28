@@ -22,6 +22,8 @@ alias rm_tmp='pwd >> ~/.pwd && cd && rm -rf $(cat ~/.pwd | tail -n 1)'
 alias get_pwd='pwd | tee -a ~/.pwd'
 alias cd_pwd='cd $(cat ~/.pwd | tail -n 1)'
 
+mkdir -p /tmp/bashrc_date
+
 reduce_path(){
     local full_path=$1
     local reduce_prefix=$(echo $full_path \
@@ -46,7 +48,7 @@ reduce_path(){
 }
 
 date_file() {
-    echo -ne "$(realpath ~/.bashrc_date_$(ps -o session --no-headers | head -n 1 | sed 's| *||'))"
+    echo -ne "/tmp/bashrc_date/$$"
 }
 
 prompt_fct(){
