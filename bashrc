@@ -81,6 +81,8 @@ prompt_fct(){
         TIME+="${elapse_time} "
     fi
 
+    __reload_history
+
     local COLOR_CYAN="\[\e[00;36m\]"
     local COLOR_CYAN_BOLD="\[\e[01;36m\]"
     local COLOR_DARK_GRAY="\[\e[00;90m\]"
@@ -133,3 +135,5 @@ function before_command() {
 trap before_command DEBUG
 
 . "$HOME/.cargo/env"
+
+source $HOME/github/smart-bash-history/01-main-settings.sh
