@@ -22,8 +22,6 @@ alias rm_tmp='pwd >> ~/.pwd && cd && rm -rf $(cat ~/.pwd | tail -n 1)'
 alias get_pwd='pwd | tee -a ~/.pwd'
 alias cd_pwd='cd $(cat ~/.pwd | tail -n 1)'
 
-PATH=$PATH:~/.cargo/bin
-
 mkdir -p /tmp/bashrc_date
 
 reduce_path(){
@@ -134,6 +132,4 @@ function before_command() {
 }
 trap before_command DEBUG
 
-. "$HOME/.cargo/env"
-
-source $HOME/github/smart-bash-history/01-main-settings.sh
+source $HOME/git/smart-bash-history/01-main-settings.sh
