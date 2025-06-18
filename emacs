@@ -10,6 +10,16 @@
  '(custom-enabled-themes '(manoj-dark))
  '(electric-pair-mode t)
  '(fringe-mode 0 nil (fringe))
+ '(ignored-local-variable-values
+   '((eval ignore-errors
+           (require 'whitespace)
+           (whitespace-mode 1))
+     (whitespace-line-column . 79)
+     (whitespace-style face indentation)
+     (eval progn
+           (c-set-offset 'case-label '0)
+           (c-set-offset 'innamespace '0)
+           (c-set-offset 'inline-open '0))))
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
@@ -38,6 +48,13 @@
 
 ;;FOLD PARANTHESIS
 (add-hook 'c-mode-common-hook
+          (lambda()
+            (local-set-key (kbd "C-c <right>") 'hs-show-block)
+            (local-set-key (kbd "C-c <left>")  'hs-hide-block)
+            (local-set-key (kbd "C-c <up>")    'hs-hide-level)
+            (local-set-key (kbd "C-c <down>")  'hs-show-all)
+            (hs-minor-mode t)))
+(add-hook 'rustic-mode-hook
           (lambda()
             (local-set-key (kbd "C-c <right>") 'hs-show-block)
             (local-set-key (kbd "C-c <left>")  'hs-hide-block)
