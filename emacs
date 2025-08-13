@@ -53,21 +53,22 @@
             (local-set-key (kbd "C-c <left>")  'hs-hide-block)
             (local-set-key (kbd "C-c <up>")    'hs-hide-level)
             (local-set-key (kbd "C-c <down>")  'hs-show-all)
-            (hs-minor-mode t)))
+            (hs-minor-mode t)
+            (local-set-key (kbd "C-x C-i") 'clang-format-region)))
 (add-hook 'rustic-mode-hook
           (lambda()
             (local-set-key (kbd "C-c <right>") 'hs-show-block)
             (local-set-key (kbd "C-c <left>")  'hs-hide-block)
             (local-set-key (kbd "C-c <up>")    'hs-hide-level)
             (local-set-key (kbd "C-c <down>")  'hs-show-all)
-            (hs-minor-mode t)))
+            (hs-minor-mode t)
+            (local-set-key (kbd "C-x C-i") 'rust-format-buffer)))
 
 (require 'clang-format)
 
 (global-set-key (kbd "C-:") 'undo)
 (global-set-key (kbd "M-c") 'comment-or-uncomment-region)
 
-(global-set-key (kbd "C-x C-i") 'clang-format-region)
 ;; (require 'cc-mode)
 ;; (define-key c-mode-base-map (kbd "C-i") 'clang-format-region)
 ;; (define-key c++-mode-map (kbd "C-i") 'clang-format-region)
