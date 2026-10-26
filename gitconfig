@@ -9,6 +9,8 @@
 [diff]
 	submodule = log
 	tool = meld
+	colorMoved = zebra
+	colorMovedWS = allow-indentation-change
 [merge]
 	tool = meld
 [status]
@@ -23,9 +25,19 @@
 	difff = diff --submodule=diff
 	showf = show --submodule=diff
 	pushf = push --recurse-submodules=on-demand
+[pretty]
+    unindented = "format:%C(auto,yellow)commit %H%C(auto)%d%C(reset)%nAuthor: %an <%ae>%nDate:   %ad%n--------%n%B%+N%n--------"
+[format]
+    pretty = unindented
 [grep]
 	lineNumber = true
 [core]
 	editor = emacs -nw
+	pager = "test $(tput cols) -ge 150 && delta --side-by-side || delta"
 [credential]
 	helper = cache --timeout=300
+[delta]
+	wrap-right-symbol = \\
+	wrap-left-symbol = \\
+[init]
+	defaultRefFormat = files
